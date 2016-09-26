@@ -1,0 +1,22 @@
+{
+  "name": "youtube-subs-fetch",
+  "version": "1.0.0",
+  "description": "fetching the transcript for youtube videos",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "subs",
+    "youtube",
+    "parse",
+    "download",
+    "transcript"
+  ],
+  "author": "sagarkarira1992@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.74.0",
+    "xml2js": "^0.4.17"
+  }
+}
