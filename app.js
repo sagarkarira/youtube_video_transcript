@@ -23,21 +23,27 @@ app.post('/ajax', function(req, res) {
 	url = 'http://video.google.com/timedtext?lang=en&v=' + id;
 	console.log("Fetching transcript for-" + url);
 	request(url, function(error, response, html){
-		if (error) {
+		if (error ) {
 			console.log(error);
-			return res.send("Something went wrong");
+			return res.send({"error": "Something went wrong"});
+		}
+		//console.log(response);
+		if (response.statusCode != 200) {
+			var error = new Error('Error 404 ');
+			console.log(error);
+			return res.send({"error": "Something went wrong"});
 		}
 		//console.log("Html-"+html)
 		if (html.length == 0) {
 			console.log("Transcript does not exist");
-			return res.send("transcript does not exist");
+			return res.send({"error":"transcript does not exist"});
 		}
 		var parser = new xml2js.Parser();
 		var xml = html;
 		parser.parseString(xml, function (err, result) {
 			if (error) {
 				console.log(error);
-				return res.send("Something went wrong");
+				return res.send({"error":"Something went wrong"});
 			}
 	   		var textArray = result.transcript.text;
 	   		//console.log(textArray);
@@ -46,7 +52,7 @@ app.post('/ajax', function(req, res) {
 				var obj = textArray[i];
 	   			var subs = subs + '\n' +  obj['_'].replace('\\n',' ').replace('--', ' ');
 			}
-			res.send(subs);
+			res.send({"subs":subs});
 		});
 	});
 });
