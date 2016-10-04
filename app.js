@@ -1,3 +1,4 @@
+
 'use strict';
 var express = require('express');
 var ejs 	= require('ejs');
@@ -11,10 +12,16 @@ var app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
+app.use('/static', express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
 	res.render('pages/index');
 });
+
+app.get('/about', function(req, res) {
+	res.render('pages/about');
+});
+
 
 app.post('/ajax', function(req, res) {
 
@@ -36,7 +43,7 @@ app.post('/ajax', function(req, res) {
 		//console.log("Html-"+html)
 		if (html.length == 0) {
 			console.log("Transcript does not exist");
-			return res.send({"error":"transcript does not exist"});
+			return res.send({"error":"Sorry, transcript does not exist for this video"});
 		}
 		var parser = new xml2js.Parser();
 		var xml = html;

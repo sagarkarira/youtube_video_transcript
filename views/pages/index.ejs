@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 <head>
     <% include ../partials/head %>
 </head>
@@ -17,8 +17,10 @@
             <div class="form-group">
                 Video URL :<label class="sr-only" for="url">Video URL:</label>
                 <input type="url" class="form-control" id="url">
+                <img id="loader" hidden src="/static/images/ajax-loader.gif"></img>
             </div>
             <button  id="submit" class="btn btn-default">Submit</button>
+
         </form>
         <br/><br/>
 
@@ -26,7 +28,7 @@
             <h1>Youtube Subs Transcripter</h1>
             <p>Fetch transcript from youtube videos</p>
         </div> -->
-        <div id="content"  class="panel panel-default">
+        <div id="content" hidden  class="panel panel-default">
             <div class="panel-heading">Transcript</div>
             <div class="panel-body">Panel Content</div>
         </div>
@@ -38,11 +40,12 @@
 
 </body>
 </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script>
 $('#submit').click(function(event) {
    event.preventDefault();
-
+   $('#loader').show();
    $.ajax({
       type: 'POST',
       url : 'http://localhost:8080/ajax',
@@ -53,18 +56,25 @@ $('#submit').click(function(event) {
       success: function(data) {
          console.log(data);
          if (data.error) {
+             $('#loader').hide();
+             $('#content').show();
+             $('#content').attr('class', "panel panel-danger" );
+             $('.panel-heading').html('Sorry, I failed you');
              $('.panel-body').html(data.error);
          }else{
+             $('#loader').hide();
+             $('#content').show();
+             $('#content').attr('class', "panel panel-success" );
+             $('.panel-heading').html('Transcript found!!');
              $('.panel-body').html(data.subs);
          }
-         //$('#content').show;
-         //$('.panel-heading').html(url);
-
       },
       error: function(data) {
           console.log(data);
-          //$('#content').show;
-          //$('.panel-heading').html(" I failed you :( ");
+          $('#loader').hide();
+          $('#content').show();
+          $('#content').attr('class', "panel panel-danger" );
+          $('.panel-heading').html('Sorry, I failed you');
           $('.panel-body').html("Something went wrong");
       }
    });
