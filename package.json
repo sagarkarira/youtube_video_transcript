@@ -16,6 +16,8 @@
   "author": "sagarkarira1992@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
     "request": "^2.74.0",
     "xml2js": "^0.4.17"
   }
