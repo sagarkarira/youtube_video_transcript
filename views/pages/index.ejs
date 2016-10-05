@@ -48,7 +48,7 @@ $('#submit').click(function(event) {
    $('#loader').show();
    $.ajax({
       type: 'POST',
-      url : 'http://localhost:8080/ajax',
+      url : 'http://' + location.hostname + ':' + location.port + '/ajax',
       data :  {
           "url" : $('#url').val()
       },
