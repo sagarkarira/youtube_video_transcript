@@ -8,6 +8,8 @@ var xml2js = require('xml2js');
 var bodyParser = require('body-parser');
 
 var app = express();
+app.set('port', process.env.PORT || 8080);
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({limit: '10mb'}));
@@ -30,15 +32,15 @@ app.post('/ajax', function(req, res) {
 	url = 'http://video.google.com/timedtext?lang=en&v=' + id;
 	console.log("Fetching transcript for-" + url);
 	request(url, function(error, response, html){
-		if (error ) {
+		if (error) {
 			console.log(error);
-			return res.send({"error": "Something went wrong"});
+			return res.send({"error": "Something went wrong. My developer sucks"});
 		}
 		//console.log(response);
 		if (response.statusCode != 200) {
-			var error = new Error('Error 404 ');
+			var error = new Error('Not a valid youtube page - 404 Error');
 			console.log(error);
-			return res.send({"error": "Something went wrong"});
+			return res.send({"error": "I think you entered an invalid youtube URL. Don't mess around with me :P"});
 		}
 		//console.log("Html-"+html)
 		if (html.length == 0) {
@@ -50,7 +52,7 @@ app.post('/ajax', function(req, res) {
 		parser.parseString(xml, function (err, result) {
 			if (error) {
 				console.log(error);
-				return res.send({"error":"Something went wrong"});
+				return res.send({"error":"Something went wrong. My developer sucks"});
 			}
 	   		var textArray = result.transcript.text;
 	   		//console.log(textArray);
@@ -64,5 +66,5 @@ app.post('/ajax', function(req, res) {
 	});
 });
 
-app.listen(8080);
-console.log('Server started');
+app.listen(app.get('port'));
+console.log('App started and listening on port: '+ app.get('port') );

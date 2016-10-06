@@ -11,16 +11,16 @@
     <header>
         <% include ../partials/header %>
     </header>
-
+        <br/><br/>
     <main>
         <form class="form-inline">
-            <div class="form-group ">
-                Video URL :<label class="sr-only" for="url">Video URL:</label>
-                <input type="url" class="form-control" id="url">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                <img id="loader" hidden src="/static/images/ajax-loader.gif"></img>
+            <div class="form-group">
+                <label for="url"></label>
+                <input type="url" style="width:1000px;"required class="form-control" id="url" placeholder="Enter the link of the youtube video you want to download. Example URL : https://www.youtube.com/watch?v=YaDvRdLMkHs">
+                <!-- <small id="emailHelp" class="form-text text-muted">Example URL : https://www.youtube.com/watch?v=YaDvRdLMkHs </small> -->
             </div>
-            <button  id="submit" class="btn btn-default">Submit</button>
+            <button id="submit" class="btn btn-default">Submit</button>
+            <img id="loader" hidden src="/static/images/ajax-loader.gif"></img>
         </form>
         <br/><br/>
 
