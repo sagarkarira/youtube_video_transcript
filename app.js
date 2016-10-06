@@ -24,7 +24,6 @@ app.get('/about', function(req, res) {
 	res.render('pages/about');
 });
 
-
 app.post('/ajax', function(req, res) {
 
 	var url = req.body.url;
@@ -65,6 +64,14 @@ app.post('/ajax', function(req, res) {
 		});
 	});
 });
+
+
+app.use(function(req, res){
+  res.status(404);
+  res.render('pages/error');
+});
+
+
 
 app.listen(app.get('port'));
 console.log('App started and listening on port: '+ app.get('port') );
