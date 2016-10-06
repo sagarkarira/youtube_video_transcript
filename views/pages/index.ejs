@@ -53,7 +53,7 @@ $('#submit').click(function(event) {
    $('#loader').show();
    $.ajax({
       type: 'POST',
-      url : 'http://' + location.hostname + ':' + location.port + '/ajax',
+      url : 'https://' + location.hostname + ':' + location.port + '/ajax',
       data :  {
           "url" : $('#url').val()
       },
