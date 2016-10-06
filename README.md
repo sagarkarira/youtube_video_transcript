@@ -1,13 +1,18 @@
-# youtube_video_transcript
+# Youtube Transcripter
 
-I sometimes need the content of a youtube video. Mainly education video, I like to add them to my notes, blog post I usually make. The best way to get the content was from the subtitles. 
+Just a hobby project I made to fetch the transcript of educational youtube videos I watched. It is easy to fetch and edit the content rather than noting it down. 
 
-I was initially using the youtube api. But I found this - http://stackoverflow.com/a/21550325. So it gets the job done without getting into youtube developers api which can be difficult for such a small task.
+Built with Express 4. 
 
-I can make a front-end for this if get time otherwise it gets my job done. 
+**To run locally**
 
-Just do this - 
+1.`npm install`
 
-`npm install`
+2.`npm start`
 
-`node app.js`
+This helped me - http://stackoverflow.com/a/21550325
+
+There were few new things I learned while making this.
+
+* Body Parser Working - I forgot to attach body-parser module, eventually I ended up [here](https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90). Brushed up my fundamentals on this. 
+* Heruko Deployment - Deployed to heruko for the very first time using just CLI. Read [here](https://devcenter.heroku.com/articles/git)
