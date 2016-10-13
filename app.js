@@ -28,7 +28,7 @@ app.post('/ajax', function(req, res) {
 
 	var url = req.body.url;
 	var id = url.slice(-11);
-	url = 'http://video.google.com/timedtext?lang=en&v=' + id;
+	url = 'http://video.google.com/timedtext?lang=' + req.body.lang + '&v=' + id;
 	console.log("Fetching transcript for-" + url);
 	request(url, function(error, response, html){
 		if (error) {
@@ -37,7 +37,7 @@ app.post('/ajax', function(req, res) {
 		}
 		//console.log(response);
 		if (response.statusCode != 200) {
-			var error = new Error('Not a valid youtube page - 404 Error');
+			error = new Error('Not a valid youtube page - 404 Error');
 			console.log(error);
 			return res.send({"error": "I think you entered an invalid youtube URL. Don't mess around with me :P"});
 		}
@@ -49,8 +49,8 @@ app.post('/ajax', function(req, res) {
 		var parser = new xml2js.Parser();
 		var xml = html;
 		parser.parseString(xml, function (err, result) {
-			if (error) {
-				console.log(error);
+			if (err) {
+				console.log(err);
 				return res.send({"error":"Something went wrong. My developer sucks"});
 			}
 	   		var textArray = result.transcript.text;
@@ -58,7 +58,7 @@ app.post('/ajax', function(req, res) {
 			var subs = '';
 	   		for (var i in textArray) {
 				var obj = textArray[i];
-	   			var subs = subs + '\n' +  obj['_'].replace('\\n',' ').replace('--', ' ');
+	   			subs = subs + '\n' +  obj['_'].replace('\\n',' ').replace('--', ' ');
 			}
 			res.send({"subs":subs});
 		});
@@ -67,8 +67,8 @@ app.post('/ajax', function(req, res) {
 
 
 app.use(function(req, res){
-  res.status(404);
-  res.render('pages/error');
+	res.status(404);
+	res.render('pages/error');
 });
 
 
